@@ -1,5 +1,5 @@
 //const { response } = require('express')
-const movieModel = require('./movies.js')
+const movieModel = require('./../models/movies')
 
 class MovieController {
     view(req, res) {
@@ -10,6 +10,19 @@ class MovieController {
             res.sendStatus(500);
             console.log('Error: ', e);
         })
+    }
+
+    async create(req, res) {
+        const movieData = req.body;
+
+        try {
+            const movie = await Movie.create(movieData);
+            res.status(201).json(movie);
+        } catch (error) {
+            res.status(500).json({
+                error: 'Failed to create a new movie.'
+            });
+        }
     }
 }
 

@@ -12,15 +12,14 @@
             HernaDocs
         </h1>
         <nav class="text-center mb-4">
-            <a href="" id="listMovies" class="btn btn-primary mr-3">List Movies</a>
-            <a href="" id="createMovies" class="btn btn-primary">Create Movie</a>
+            <a href="home.html" id="Home" class="btn btn-primary mr-3">Home</a>
         </nav>
     </header>
 
     <main>
         <div class="movieList">
             <form id="createMovieForm">
-                <div class="form-group">
+                <div class="form-group" action="/movies" method="POST">
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" class="form-control" required>
                 </div>
@@ -62,9 +61,6 @@
 
         </div>
     </main>
-
-
-    <script src="main.js"></script>
-    
+    <!--<script src="main.js"></script>-->
 </body>
 </html>
