@@ -8,11 +8,10 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
 app.use('', routes);
-
-app.use(cors());
-app.use(bodyParser.json())
 
 app.get('', (req, res) => {
     res.send('API works!, from movies');
@@ -54,4 +53,3 @@ app.post('/movies', async (req, res) => {
         });
     }
 });
-

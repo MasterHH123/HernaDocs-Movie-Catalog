@@ -1,4 +1,4 @@
-// JavaScript code on your client-side (main.js)
+// index.js
 document.getElementById('createMovieForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
@@ -13,7 +13,7 @@ document.getElementById('createMovieForm').addEventListener('submit', async func
     };
 
     try {
-        const response = await fetch('/movies', {
+        const response = await fetch('http://localhost:3000/movies', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -22,9 +22,8 @@ document.getElementById('createMovieForm').addEventListener('submit', async func
         });
 
         if (response.ok) {
-            const newMovie = await response.json();
-            // Update the movie list with the new movie
-            addMovieToList(newMovie);
+            window.alert('Movie has been added!');
+            document.getElementById('createMovieForm').reset();
         } else {
             console.error('Failed to create a new movie.');
         }
@@ -32,18 +31,3 @@ document.getElementById('createMovieForm').addEventListener('submit', async func
         console.error('Error:', error);
     }
 });
-
-function addMovieToList(movie) {
-    const list = document.getElementById('movieList');
-    const item = document.createElement('li');
-    item.classList.add('list-group-item');
-    item.innerHTML = `
-        <h4 class="mb-1">${movie.name}</h4>
-        <p class="mb-1">${movie.synopsis}</p>
-        <p class="mb-1">Genre: ${movie.genre}</p>
-        <p class="mb-1">Duration: ${movie.duration} minutes</p>
-        <p class="mb-1">Director: ${movie.director}</p>
-        <p class="mb-1">Actors: ${movie.actors}</p>
-    `;
-    list.appendChild(item);
-}

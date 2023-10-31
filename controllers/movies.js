@@ -3,24 +3,27 @@ const movieModel = require('./../models/movies')
 
 class MovieController {
     view(req, res) {
-        movieModel.find().then(response => {
-            console.log('Response: ', response);
-            res.send(response)
+        movieModel.find().then(movies => {
+            res.json(movies);
         }).catch(e => {
-            res.sendStatus(500);
-            console.log('Error: ', e);
-        })
+            console.error(e);
+            res.status(500).json({
+                error: 'There was an issue getting the movies.'
+            });
+        });
     }
 
     async create(req, res) {
         const movieData = req.body;
 
         try {
-            const movie = await Movie.create(movieData);
+            const movie = new movieModel(movieData);
+            await movie.save();
             res.status(201).json(movie);
         } catch (error) {
-            res.status(500).json({
-                error: 'Failed to create a new movie.'
+            console.log(error);
+            res.status(400).json({
+                error: 'There was an error creating the movie.'
             });
         }
     }
